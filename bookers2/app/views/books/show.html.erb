@@ -1,0 +1,29 @@
+<div class="col-md-8 offset-md-1">
+  <h2>Book detail</h2>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          画像
+          <br>
+          <%= link_to current_user.name %>
+        </td>
+        <td>
+          <%= link_to @book.title %>
+        </td>
+        <td>
+          <%= @book.title %>
+        </td>
+
+        <% if current_user == @book.user %>
+          <td>
+            <%= link_to "Edit" %>
+          </td>
+          <td>
+            <%= link_to "Destroy", book_path(@book), method: :delete%>
+          </td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>
