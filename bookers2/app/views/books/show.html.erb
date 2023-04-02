@@ -1,29 +1,41 @@
-<div class="col-md-8 offset-md-1">
-  <h2>Book detail</h2>
-  <table class="table">
-    <tbody>
-      <tr>
-        <td>
-          画像
-          <br>
-          <%= link_to current_user.name %>
-        </td>
-        <td>
-          <%= link_to @book.title %>
-        </td>
-        <td>
-          <%= @book.title %>
-        </td>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'users/info', user: @user %>
+      <%= render '/books/new', book: @new_book %>
+    </div>
 
-        <% if current_user == @book.user %>
-          <td>
-            <%= link_to "Edit" %>
-          </td>
-          <td>
-            <%= link_to "Destroy", book_path(@book), method: :delete%>
-          </td>
-        <% end %>
-      </tr>
-    </tbody>
-  </table>
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to user_path(@book.user.id) do %>
+                <%= image_tag @book.user.get_profile_image(100,100) %>
+                <br>
+                <%= @book.user.name %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to @book.title %>
+            </td>
+            <td>
+              <%= @book.body %>
+            </td>
+
+            <% if current_user == @book.user %>
+              <td>
+                <%= link_to "Edit", edit_book_path(@book.id), class:"btn btn-sm btn-success"  %>
+              </td>
+              <td>
+                <%= link_to "Destroy", book_path(@book), class:"btn btn-sm btn-danger", method: :delete%>
+              </td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
+

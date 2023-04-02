@@ -6,7 +6,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -14,35 +14,54 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-          <%= link_to "Bookers", root_path %>
+          <a class="navbar-brand" href="/">Bookers</a>
+          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#globalNavBar" aria-controls="globalNavBar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <div class="collapse navbar-collapse" id="globalNavBar">
             <ul class="navbar-nav ml-auto">
               <% if user_signed_in? %>
-                <li>
-                  <%= link_to "Home" %>
+                <li class="nav-item">
+                  <%= link_to user_path(current_user.id), class: 'nav-link text-white' do %>
+                    <i class="fas fa-home" aria-hidden="true"></i> Home
+                  <% end %>
                 </li>
-                <li>
-                  <%= link_to "Users" %>
+                <li class="nav-item">
+                  <%= link_to users_path, class: 'nav-link text-white' do %>
+                    <i class="fas fa-users" aria-hidden="true"></i> Users
+                  <% end %>
                 </li>
-                <li>
-                  <%= link_to "Books", books_path %>
+                <li class="nav-item">
+                  <%= link_to books_path, class: 'nav-link text-white' do %>
+                    <i class="fas fa-book-open" aria-hidden="true"></i> Books
+                  <% end %>
                 </li>
-                <li>
-                  <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+                <li class="nav-item">
+                  <%= link_to destroy_user_session_path, class: 'nav-link text-white', method: :delete do %>
+                    <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Log out
+                  <% end %>
                 </li>
               <% else %>
-                <li>
-                  <%= link_to "Home", root_path %>
+                <li class="nav-item">
+                  <%= link_to root_path, class: 'nav-link text-white' do %>
+                    <i class="fas fa-home" aria-hidden="true"></i> Home
+                  <% end %>
                 </li>
-                <li>
-                  <%= link_to "About", home_about_path %>
+                <li class="nav-item">
+                  <%= link_to '/home/about', class: 'nav-link text-white' do %>
+                    <i class="fas fa-link" aria-hidden="true"></i> About
+                  <% end %>
                 </li>
-                <li>
-                  <%= link_to "Sign up", new_user_registration_path %>
+                <li class="nav-item">
+                  <%= link_to new_user_registration_path, class: 'nav-link text-white' do %>
+                    <i class="fas fa-user-plus" aria-hidden="true"></i> Sign up
+                  <% end %>
                 </li>
-                <li>
-                  <%= link_to "Log in", new_user_session_path %>
+                <li class="nav-item">
+                  <%= link_to new_user_session_path, class: 'nav-link text-white' do %>
+                    <i class="fas fa-sign-in-alt" aria-hidden="true"></i> Log in
+                  <% end %>
                 </li>
               <% end %>
             </ul>
@@ -50,8 +69,20 @@
         </div>
       </nav>
     </header>
+    <main>
+      <p id="notice">
+        <% if notice.present? %>
+          <%= notice %>
+        <% end %>
+      </p>
+      <p id="alert">
+        <% if alert.present? %>
+          <%= alert %>
+        <% end %>
+      </p>
 
-    <%= yield %>
+      <%= yield %>
+    </main>
   </body>
 
 
